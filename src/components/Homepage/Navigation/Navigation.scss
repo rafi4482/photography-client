@@ -1,0 +1,54 @@
+// .navigation {
+//     background-color: #333;
+//     padding: 10px;
+//     display: flex;
+//     align-items: center;
+// }
+
+// .logo {
+//     img {
+//         width: 100px;
+//         /* Adjust the size of the logo as needed */
+//         height: auto;
+//         /* Maintain the aspect ratio of the logo */
+//     }
+// }
+
+// .nav-list {
+//     list-style: none;
+//     margin: 0;
+//     padding: 0;
+//     display: flex;
+//     justify-content: center;
+//     /* Center the links within the navigation bar */
+//     flex: 1;
+//     /* Allow the links to take up the remaining space */
+
+//     .nav-item {
+//         margin: 0 10px;
+
+//         a {
+//             color: #fff;
+//             text-decoration: none;
+//             padding: 5px 10px;
+//             border-radius: 5px;
+
+//             &:hover {
+//                 background-color: #555;
+//             }
+//         }
+//     }
+// }
+
+// .avatar {
+//     display: flex;
+//     img {
+//         width: 40px;
+//         /* Adjust the size of the avatar as needed */
+//         height: 40px;
+//         border-radius: 50%;
+//         /* To make the avatar circular */
+//         margin-left: 10px;
+//         /* Add some spacing between the navigation and avatar */
+//     }
+// }
