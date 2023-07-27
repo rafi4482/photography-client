@@ -10,6 +10,7 @@ import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import { onAuthStateChangedListener } from "./firebase.config";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -32,6 +33,7 @@ function App() {
         <Route path="/instructors" element={<Instructors />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />

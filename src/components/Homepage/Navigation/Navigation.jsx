@@ -8,7 +8,7 @@ import {
   useDisclosure,
   Button,
 } from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { Menu, ExitToApp, AccountCircle } from "@mui/icons-material"; // Import Material-UI icons
 import { signInWithGooglePopup, signOutUser } from "../../../firebase.config";
 
@@ -23,6 +23,8 @@ const Navigation = ({ user }) => {
       console.error("Error signing out:", error);
     }
   };
+
+  const navigate = useNavigate();
 
   return (
     <Box as="nav" bg="gray.800" color="white" p={4}>
@@ -62,7 +64,7 @@ const Navigation = ({ user }) => {
         <Flex align="center">
           {user ? (
             <>
-              <Button m={2} to="/dashboard">
+              <Button m={2} onClick={() => navigate("/dashboard")}>
                 Dashboard
               </Button>
               <IconButton

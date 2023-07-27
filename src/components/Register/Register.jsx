@@ -13,9 +13,10 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import {
-  signInAuthUserWithEmailAndPassword,
   signInWithGooglePopup,
+  createAuthUserWithEmailAndPassword,
 } from "../../firebase.config";
+import toast, { Toaster } from "react-hot-toast";
 
 const defaultFormFields = {
   email: "",
@@ -46,22 +47,43 @@ const Register = () => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match. Please try again.");
+      toast.error("Passwords do not match. Please try again.");
       return;
     }
 
     try {
-      // Your registration logic here
+      // Check if the email already exists
+      const userExists = await isUserExists(email);
+      if (userExists) {
+        toast.error("Email already exists. Please use a different email.");
+        return;
+      }
+
+      // Proceed with user registration
+      await createAuthUserWithEmailAndPassword(email, password);
       resetFormFields();
       navigate("/"); // Redirect to homepage after successful registration
     } catch (error) {
       console.log("Registration failed", error);
+      toast.error("Registration failed. Please try again.");
     }
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
+  };
+
+  const isUserExists = async (email) => {
+    // Your implementation to check if the email exists in Firebase
+    // For example: Use Firebase's `fetchSignInMethodsForEmail` to check if email is registered
+    try {
+      const methods = await firebase.auth().fetchSignInMethodsForEmail(email);
+      return methods.length > 0;
+    } catch (error) {
+      console.log("Error checking user existence:", error);
+      return false;
+    }
   };
 
   return (
@@ -113,7 +135,7 @@ const Register = () => {
                   onChange={handleChange}
                 />
               </FormControl>
-              <Stack spacing={10} pt={2}>
+              <Stack spacing={10} pt={6}>
                 <Button
                   type="submit"
                   loadingText="Submitting"
@@ -134,7 +156,7 @@ const Register = () => {
                   }}
                   onClick={signInWithGoogle}
                 >
-                  Sign up with Google
+                  Continue with Google
                 </Button>
               </Stack>
             </form>
@@ -149,6 +171,7 @@ const Register = () => {
           </Stack>
         </Box>
       </Stack>
+      <Toaster />
     </Flex>
   );
 };
