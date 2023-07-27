@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Box,
   Center,
@@ -10,6 +10,8 @@ import {
   SimpleGrid,
   Button,
 } from "@chakra-ui/react";
+import { AuthContext } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const IMAGE =
   "https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80";
@@ -20,52 +22,21 @@ const popularClassesData = [
     title: "JOURNAL",
     price: "$57",
     discountedPrice: "$199",
+    availableSeats: 0,
   },
   {
-    brand: "Brand 2",
-    title: "Cozy Sofa, blue",
-    price: "$89",
-    discountedPrice: "$249",
+    brand: "Brand 1",
+    title: "JOURNAL",
+    price: "$57",
+    discountedPrice: "$199",
+    availableSeats: 10,
   },
-  {
-    brand: "Brand 2",
-    title: "Cozy Sofa, blue",
-    price: "$89",
-    discountedPrice: "$249",
-  },
-  {
-    brand: "Brand 2",
-    title: "Cozy Sofa, blue",
-    price: "$89",
-    discountedPrice: "$249",
-  },
-  {
-    brand: "Brand 2",
-    title: "Cozy Sofa, blue",
-    price: "$89",
-    discountedPrice: "$249",
-  },
-  {
-    brand: "Brand 2",
-    title: "Cozy Sofa, blue",
-    price: "$89",
-    discountedPrice: "$249",
-  },
-  {
-    brand: "Brand 2",
-    title: "Cozy Sofa, blue",
-    price: "$89",
-    discountedPrice: "$249",
-  },
-  {
-    brand: "Brand 2",
-    title: "Cozy Sofa, blue",
-    price: "$89",
-    discountedPrice: "$249",
-  },
+  // Add more data for other classes
 ];
 
 const Classes = () => {
+  const { isLoggedIn } = useContext(AuthContext);
+
   return (
     <Box>
       <Center m={6}>
@@ -132,7 +103,7 @@ const Classes = () => {
                   Instructor: John Doe
                 </Text>
                 <Text fontWeight={600} fontSize="md">
-                  Available seats: 10
+                  Available seats: {data.availableSeats}
                 </Text>
                 <Stack direction="row" align="center" spacing={1} mt={2}>
                   <Text fontWeight={800} fontSize="lg">
@@ -145,18 +116,46 @@ const Classes = () => {
                     {data.discountedPrice}
                   </Text>
                 </Stack>
-                <Button
-                  mt={4}
-                  colorScheme="teal"
-                  size="md"
-                  fontWeight={600}
-                  _focus={{ outline: "none" }}
-                  _hover={{ bg: "teal.600" }}
-                  _active={{ bg: "teal.700" }}
-                  onClick={() => console.log("Select button clicked")}
-                >
-                  Select
-                </Button>
+                {isLoggedIn ? (
+                  <Button
+                    mt={4}
+                    colorScheme={data.availableSeats === 0 ? "red" : "teal"}
+                    size="md"
+                    fontWeight={600}
+                    _focus={{ outline: "none" }}
+                    _hover={{
+                      bg: data.availableSeats === 0 ? "red.600" : "teal.600",
+                    }}
+                    _active={{
+                      bg: data.availableSeats === 0 ? "red.700" : "teal.700",
+                    }}
+                    isDisabled={data.availableSeats === 0 || !isLoggedIn}
+                    onClick={() => console.log("Select button clicked")}
+                  >
+                    {data.availableSeats === 0
+                      ? "No available seats"
+                      : isLoggedIn
+                      ? "Select"
+                      : "Log in to select"}
+                  </Button>
+                ) : (
+                  <Link to="/login">
+                    <Button
+                      mt={4}
+                      colorScheme="teal"
+                      size="md"
+                      fontWeight={600}
+                      _focus={{ outline: "none" }}
+                      _hover={{ bg: "teal.600" }}
+                      _active={{ bg: "teal.700" }}
+                      isDisabled={data.availableSeats === 0}
+                    >
+                      {data.availableSeats === 0
+                        ? "No available seats"
+                        : "Select"}
+                    </Button>
+                  </Link>
+                )}
               </Stack>
             </Box>
           </Center>
