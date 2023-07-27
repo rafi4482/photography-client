@@ -51,6 +51,21 @@ const Register = () => {
       return;
     }
 
+    if (password.length < 6) {
+      toast.error("Password should be at least 6 characters long.");
+      return;
+    }
+
+    // Password validation using regex to check for capital letter and special character
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[a-zA-Z0-9!@#$%^&*()_+]{6,}$/;
+    if (!passwordRegex.test(password)) {
+      toast.error(
+        "Password should contain at least one capital letter and one special character."
+      );
+      return;
+    }
+
     try {
       // Check if the email already exists
       const userExists = await isUserExists(email);

@@ -56,7 +56,6 @@ const Navigation = ({ user }) => {
           w={{ base: "full", md: "auto" }}
           justify={{ base: "center", md: "flex-end" }}
         >
-          {/* Add your navigation items here */}
           <NavItem to="/">Home</NavItem>
           <NavItem to="/classes">Classes</NavItem>
           <NavItem to="/instructors">Instructors</NavItem>
