@@ -8,6 +8,7 @@ import {
   Stack,
   Image,
   SimpleGrid,
+  Button,
 } from "@chakra-ui/react";
 
 const IMAGE =
@@ -16,7 +17,7 @@ const IMAGE =
 const popularClassesData = [
   {
     brand: "Brand 1",
-    title: "Nice Chair, pink",
+    title: "JOURNAL",
     price: "$57",
     discountedPrice: "$199",
   },
@@ -68,7 +69,7 @@ const Classes = () => {
   return (
     <Box>
       <Center m={6}>
-        <Heading as="h2" size="xl">
+        <Heading as="h4" size="xl">
           Popular Classes
         </Heading>
       </Center>
@@ -85,23 +86,24 @@ const Classes = () => {
               maxW="330px"
               w="full"
               bg={useColorModeValue("white", "gray.800")}
-              boxShadow="2xl"
-              rounded="lg"
-              pos="relative"
-              zIndex={1}
+              borderWidth="1px"
+              borderColor={useColorModeValue("gray.200", "gray.600")}
+              borderRadius="xl"
+              overflow="hidden"
+              boxShadow="lg"
             >
               <Box
                 rounded="lg"
                 mt={-12}
                 pos="relative"
                 height="230px"
+                overflow="hidden"
                 _after={{
-                  transition: "all .3s ease",
                   content: '""',
                   w: "full",
                   h: "full",
                   pos: "absolute",
-                  top: 5,
+                  top: 0,
                   left: 0,
                   backgroundImage: `url(${IMAGE})`,
                   filter: "blur(15px)",
@@ -122,21 +124,39 @@ const Classes = () => {
                   alt="#"
                 />
               </Box>
-              <Stack pt={10} align="center">
-                <Text color="gray.500" fontSize="sm" textTransform="uppercase">
-                  {data.brand}
-                </Text>
-                <Heading fontSize="2xl" fontFamily="body" fontWeight={500}>
+              <Stack p={2} pt={10} align="center">
+                <Heading fontSize="2xl" fontFamily="body" fontWeight={600}>
                   {data.title}
                 </Heading>
-                <Stack direction="row" align="center">
-                  <Text fontWeight={800} fontSize="xl">
+                <Text p={2} fontWeight={600} fontSize="md">
+                  Instructor: John Doe
+                </Text>
+                <Text fontWeight={600} fontSize="md">
+                  Available seats: 10
+                </Text>
+                <Stack direction="row" align="center" spacing={1} mt={2}>
+                  <Text fontWeight={800} fontSize="lg">
                     {data.price}
                   </Text>
-                  <Text textDecoration="line-through" color="gray.600">
+                  <Text
+                    textDecoration="line-through"
+                    color={useColorModeValue("gray.600", "gray.400")}
+                  >
                     {data.discountedPrice}
                   </Text>
                 </Stack>
+                <Button
+                  mt={4}
+                  colorScheme="teal"
+                  size="md"
+                  fontWeight={600}
+                  _focus={{ outline: "none" }}
+                  _hover={{ bg: "teal.600" }}
+                  _active={{ bg: "teal.700" }}
+                  onClick={() => console.log("Select button clicked")}
+                >
+                  Select
+                </Button>
               </Stack>
             </Box>
           </Center>
